@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Pagina from "./componentes/layouts/Pagina";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Pagina>
+        <h1>Esta é a pagina de cadastro de cliente</h1>
+      </Pagina>
+
+      <Pagina>
+        <h1>Esta é a pagina de cadastro de fornecedores</h1>
+      </Pagina>
+
+      <Pagina>
+        <h1>Esta é a pagina de cadastro de produtos</h1>
+      </Pagina>
+
+      <Pagina>
+        <h1>Esta é a pagina de cadastro de categorias</h1>
+      </Pagina>
     </div>
   );
 }
