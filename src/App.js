@@ -1,21 +1,26 @@
 import Pagina from "./componentes/layouts/Pagina";
+import TelaCadastroCliente from "./componentes/Telas/Forms/TelaCadastroCliente";
+import TelaCadastroFornecedor from "./componentes/Telas/Forms/TelaCadastroFornecedor";
+import TelaCadastroProduto from "./componentes/Telas/Forms/TelaCadastroProduto";
+import TelaCadastroCategoria from "./componentes/Telas/Forms/TelaCadastroCategoria"
+
 function App() {
   return (
     <div className="App">
       <Pagina>
-        <h1>Esta é a pagina de cadastro de cliente</h1>
+        <TelaCadastroCliente/>
       </Pagina>
 
       <Pagina>
-        <h1>Esta é a pagina de cadastro de fornecedores</h1>
+        <TelaCadastroFornecedor/>
       </Pagina>
 
       <Pagina>
-        <h1>Esta é a pagina de cadastro de produtos</h1>
+        <TelaCadastroProduto/>
       </Pagina>
 
       <Pagina>
-        <h1>Esta é a pagina de cadastro de categorias</h1>
+        <TelaCadastroCategoria/>
       </Pagina>
     </div>
   );
