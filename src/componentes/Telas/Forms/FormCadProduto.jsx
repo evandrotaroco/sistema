@@ -22,7 +22,7 @@ export default function FormCadProdutos(props) {
         const form = evento.currentTarget;
         if (form.checkValidity()){
             //cadastrar o produto
-            props.listaDeProdutos.push(produto);
+            props.setListadeProdutos([...props.listaDeProdutos, produto]);
             //exibir tabela com o produto incluído
             props.setExibirTabela(true);
         }
