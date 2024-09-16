@@ -1,27 +1,25 @@
 import Pagina from "./componentes/layouts/Pagina";
-import TelaCadastroCliente from "./componentes/Telas/Forms/TelaCadastroCliente";
-import TelaCadastroFornecedor from "./componentes/Telas/Forms/TelaCadastroFornecedor";
-import TelaCadastroProduto from "./componentes/Telas/Forms/TelaCadastroProduto";
-import TelaCadastroCategoria from "./componentes/Telas/Forms/TelaCadastroCategoria"
+import TelaCadastroProduto from "./componentes/Telas/TelaCadastroProduto";
+import TelaCadastroCategoria from "./componentes/Telas/TelaCadastroCategoria";
+import TelaCadastroFornecedor from "./componentes/Telas/TelaCadastroFornecedor";
+import TelaCadastroCliente from "./componentes/Telas/TelaCadastroCliente";
+import TelaMenu from "./componentes/Telas/TelaMenu";
+import Tela404 from "./componentes/Telas/Tela404";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Pagina>
-        <TelaCadastroCliente/>
-      </Pagina>
-
-      <Pagina>
-        <TelaCadastroFornecedor/>
-      </Pagina>
-
-      <Pagina>
-        <TelaCadastroProduto/>
-      </Pagina>
-
-      <Pagina>
-        <TelaCadastroCategoria/>
-      </Pagina>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/produto" element={<TelaCadastroProduto />} />
+          <Route path="/categoria" element={<TelaCadastroCategoria />} />
+          <Route path="/fornecedor" element={<TelaCadastroFornecedor />} />
+          <Route path="/cliente" element={<TelaCadastroCliente />} />
+          <Route path="/" element={<TelaMenu />} />
+          <Route path="*" element={<Tela404 />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
