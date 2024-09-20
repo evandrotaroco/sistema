@@ -1,4 +1,3 @@
-import Pagina from "./componentes/layouts/Pagina";
 import TelaCadastroProduto from "./componentes/Telas/TelaCadastroProduto";
 import TelaCadastroCategoria from "./componentes/Telas/TelaCadastroCategoria";
 import TelaCadastroFornecedor from "./componentes/Telas/TelaCadastroFornecedor";
