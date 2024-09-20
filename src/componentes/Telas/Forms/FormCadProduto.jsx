@@ -21,10 +21,18 @@ export default function FormCadProdutos(props) {
     function manipularSubmissao(evento){
         const form = evento.currentTarget;
         if (form.checkValidity()){
-            //cadastrar o produto
-            props.setListadeProdutos([...props.listaDeProdutos, produto]);
-            //exibir tabela com o produto incluído
-            props.setExibirTabela(true);
+            if (props.ModoEdicao){
+                props.setListaDeProdutos(props.listaDeProdutos.map((item) =>
+                    item.codigo === props.ProdutoEditado.codigo ? props.ProdutoEditado : item
+                  ));
+                props.setModoEdicao(false);
+                props.setExibirTabela(true);
+            }
+            else{
+                props.setListaDeProdutos([...props.listaDeProdutos, props.ProdutoEditado]);
+                props.setExibirTabela(true);
+            }
+            
         }
         else{
             setFormValidado(true);
@@ -36,8 +44,8 @@ export default function FormCadProdutos(props) {
 
     function manipularMudanca(evento){
         const elemento = evento.target.name;
-        const valor    = evento.target.value; 
-        setProduto({...produto, [elemento]:valor});
+        const valor    = evento.target.value;
+        props.setProduto({...props.ProdutoEditado, [elemento]:valor});
     }
 
     return (
@@ -50,7 +58,7 @@ export default function FormCadProdutos(props) {
                         type="text"
                         id="codigo"
                         name="codigo"
-                        value={produto.codigo}
+                        value={props.ProdutoEditado.codigo}
                         onChange={manipularMudanca}
                     />
                     <Form.Control.Feedback type='invalid'>Por favor, informe o código do produto!</Form.Control.Feedback>
@@ -64,7 +72,7 @@ export default function FormCadProdutos(props) {
                         type="text"
                         id="descricao"
                         name="descricao"
-                        value={produto.descricao}
+                        value={props.ProdutoEditado.descricao}
                         onChange={manipularMudanca}
                     />
                     <Form.Control.Feedback type="invalid">Por favor, informe a descrição do produto!</Form.Control.Feedback>
@@ -80,7 +88,7 @@ export default function FormCadProdutos(props) {
                             id="precoCusto"
                             name="precoCusto"
                             aria-describedby="precoCusto"
-                            value={produto.precoCusto}
+                            value={props.ProdutoEditado.precoCusto}
                             onChange={manipularMudanca}
                             required
                         />
@@ -98,7 +106,7 @@ export default function FormCadProdutos(props) {
                             id="precoVenda"
                             name="precoVenda"
                             aria-describedby="precoVenda"
-                            value={produto.precoVenda}
+                            value={props.ProdutoEditado.precoVenda}
                             onChange={manipularMudanca}
                             required
                         />
@@ -116,7 +124,7 @@ export default function FormCadProdutos(props) {
                             id="qtdEstoque"
                             name="qtdEstoque"
                             aria-describedby="qtdEstoque"
-                            value={produto.qtdEstoque}
+                            value={props.ProdutoEditado.qtdEstoque}
                             onChange={manipularMudanca}
                             required
                         />
@@ -134,7 +142,7 @@ export default function FormCadProdutos(props) {
                         type="text"
                         id="urlImagem"
                         name="urlImagem"
-                        value={produto.urlImagem}
+                        value={props.ProdutoEditado.urlImagem}
                         onChange={manipularMudanca}
                     />
                     <Form.Control.Feedback type="invalid">Por favor, informe a url da imagem do produto!</Form.Control.Feedback>
@@ -148,7 +156,7 @@ export default function FormCadProdutos(props) {
                         type="text"
                         id="dataValidade"
                         name="dataValidade"
-                        value={produto.dataValidade}
+                        value={props.ProdutoEditado.dataValidade}
                         onChange={manipularMudanca}
                     />
                     <Form.Control.Feedback type="invalid">Por favor, informe a data de validade do produto!</Form.Control.Feedback>
