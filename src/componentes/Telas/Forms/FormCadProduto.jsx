@@ -78,7 +78,8 @@ export default function FormCadProdutos(props) {
                 precoVenda: 0,
                 qtdEstoque: 0,
                 urlImagem: "",
-                dataValidade: ""
+                dataValidade: "",
+                categoria: {}
             });
             props.setExibirTabela(true);
         }

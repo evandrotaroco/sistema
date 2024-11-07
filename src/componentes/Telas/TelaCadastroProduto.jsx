@@ -1,14 +1,14 @@
 import { Alert } from "react-bootstrap";
 import FormCadProdutos from "./Forms/FormCadProduto";
 import Pagina from "../layouts/Pagina";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TabelaProdutos from "./Tabelas/TabelaProdutos";
 //import { produtos } from "../../dados/mockProdutos";
 import { consultarProduto } from "../../servicos/servicoProduto.js";
 
 export default function TelaCadastroProduto(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
-    const [listaDeProdutos, setListaDeProdutos] = useState(produtos);
+    const [listaDeProdutos, setListaDeProdutos] = useState([]);
     const [modoEdicao, setModoEdicao] = useState(false);
     //const [produto, setProduto] = useState();
     const [produtoSelecionado, setProdutoSelecionado] = useState({
@@ -32,7 +32,7 @@ export default function TelaCadastroProduto(props) {
     return (
         <div>
             <Pagina>
-                |<Alert className="mt-02 mb-02 success text-center" variant="success">
+                <Alert className="mt-02 mb-02 success text-center" variant="success">
                     <h2>
                         Cadastro de Produto
                     </h2>
