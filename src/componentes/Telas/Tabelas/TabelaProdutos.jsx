@@ -16,6 +16,11 @@ export default function TabelaProdutos(props) {
             deletarProduto(produto)
                 .then((resultado) => {
                     if (resultado.status) {
+                        if (resultado.status) {
+                            props.setListaDeProdutos(props.listaDeProdutos.map((item) =>
+                                item.codigo !== produto.codigo ? item : produto
+                            ));
+                        }
                         toast.success("Produto excluido com sucesso!");
                     }
                     else {
