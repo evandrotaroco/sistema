@@ -1,4 +1,6 @@
 import { Button, Container, Table } from "react-bootstrap";
+import { consultarProduto } from "../../../servicos/servicoProduto";
+import { useEffect } from "react";
 
 export default function TabelaProdutos(props) {
 
@@ -27,6 +29,15 @@ export default function TabelaProdutos(props) {
         }
     }
 
+    useEffect(() => {
+        consultarProduto().then((res) => {
+            if (Array.isArray(res))
+                props.setListaDeProdutos(res);
+            else
+                window.alert(res.mensagem);
+        });
+    }, []);
+
     return (
         <>
             <Container>
@@ -49,7 +60,7 @@ export default function TabelaProdutos(props) {
                     </thead>
                     <tbody>
                         {
-                            props.ListaDeProdutos?.map((produto) => {
+                            props.listaDeProdutos?.map((produto) => {
                                 return (
                                     <tr>
                                         <td>{produto.codigo}</td>
