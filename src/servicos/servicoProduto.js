@@ -13,23 +13,28 @@ export async function gravarProduto(produto) {
 }
 
 export async function alterarProduto(produto) {
-    const resposta = await fetch(urlBase,{
-        'method':"PUT",
-        'headers': { 
-            'Content-Type':"application/json"
+    const resposta = await fetch(urlBase + "/" + produto.codigo, {
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json"
         },
-        'body': JSON.stringify(produto)
+        "body": JSON.stringify(produto)
     });
     const resultado = await resposta.json();
     return resultado;
 }
 
-export async function excluirProduto(produto){
-    const resposta = await fetch(urlBase + "/" + produto.codigo,{
-        'method':"DELETE",
+export async function deletarProduto(produto) {
+    const resposta = await fetch(urlBase + "/" + produto.codigo, {
+        "method": "DELETE",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(produto)
     });
     const resultado = await resposta.json();
     return resultado;
+
 }
 
 export async function consultarProduto() {

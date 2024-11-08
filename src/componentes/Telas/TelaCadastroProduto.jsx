@@ -10,7 +10,6 @@ export default function TelaCadastroProduto(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
     const [listaDeProdutos, setListaDeProdutos] = useState([]);
     const [modoEdicao, setModoEdicao] = useState(false);
-    //const [produto, setProduto] = useState();
     const [produtoSelecionado, setProdutoSelecionado] = useState({
         "codigo":0,
         "descricao":"",
@@ -41,9 +40,12 @@ export default function TelaCadastroProduto(props) {
                     exibirTabela ?
                         <TabelaProdutos listaDeProdutos={listaDeProdutos}
                                         setListaDeProdutos={setListaDeProdutos}
-                                        setExibirTabela={setExibirTabela}
+                                        modoEdicao={modoEdicao}
                                         setModoEdicao={setModoEdicao}
-                                        setProdutoSelecionado={setProdutoSelecionado}/>
+                                        produtoSelecionado={produtoSelecionado}
+                                        setProdutoSelecionado={setProdutoSelecionado}
+                                        setExibirTabela={setExibirTabela}
+                        />
                         :
                         <FormCadProdutos listaDeProdutos={listaDeProdutos}
                                         setListaDeProdutos={setListaDeProdutos}
@@ -51,7 +53,7 @@ export default function TelaCadastroProduto(props) {
                                         setModoEdicao={setModoEdicao}
                                         produtoSelecionado={produtoSelecionado}
                                         setProdutoSelecionado={setProdutoSelecionado}
-                                        ModoEdicao={modoEdicao}/>
+                                        modoEdicao={modoEdicao}/>
                 }
             </Pagina>
         </div>
