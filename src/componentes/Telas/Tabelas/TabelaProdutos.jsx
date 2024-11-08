@@ -27,7 +27,7 @@ export default function TabelaProdutos(props) {
 
     return (
         <>
-            <Container className='text-center'>
+            <Container>
                 <Button className="mb-3" variant="primary"
                     onClick={() => {
                         props.setExibirTabela(false);
@@ -84,7 +84,7 @@ export default function TabelaProdutos(props) {
                 </Table>
             </Container>
             Quantidade de Produtos Cadastrados: {props.listaDeProdutos.length}
-            <Toaster position="top-center" />
+            <Toaster position="top-right" />
         </>
     );
 }

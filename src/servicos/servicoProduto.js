@@ -27,10 +27,6 @@ export async function alterarProduto(produto) {
 export async function deletarProduto(produto) {
     const resposta = await fetch(urlBase + "/" + produto.codigo, {
         "method": "DELETE",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "body": JSON.stringify(produto)
     });
     const resultado = await resposta.json();
     return resultado;
