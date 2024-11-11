@@ -48,6 +48,7 @@ export default function TabelaProdutos(props) {
                         <th>Qtd. em estoque</th>
                         <th>Imagem</th>
                         <th>Validade</th>
+                        <th>Categoria<th/>
                         <th>Ações</th>
                     </thead>
                     <tbody>
@@ -65,6 +66,7 @@ export default function TabelaProdutos(props) {
                                             "width": "80px"
                                         }} src={produto.urlImagem} alt="foto do produto" /></td>
                                         <td>{produto.dataValidade}</td>
+                                        <td>{produto.categoria.descricao}</td>
                                         <td>
                                             <Button onClick={() => {
                                                 editarProduto(produto);
