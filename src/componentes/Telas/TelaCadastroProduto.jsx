@@ -19,7 +19,6 @@ export default function TelaCadastroProduto(props) {
         "urlImagem":"",
         "dataValidade":"",
         "categoria": {}
-
     });
 
     useEffect(()=>{

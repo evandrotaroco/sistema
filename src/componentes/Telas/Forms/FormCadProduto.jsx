@@ -1,7 +1,7 @@
 import { Button, Spinner, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { consultarCategoria } from '../../../servicos/servicoCategoria';
-import { gravarProduto, alterarProduto } from '../../../servicos/servicoProduto';
+import { gravarProduto, alterarProduto, consultarProduto } from '../../../servicos/servicoProduto';
 
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -62,6 +62,9 @@ export default function FormCadProdutos(props) {
                             props.setListaDeProdutos(props.listaDeProdutos.map((item) =>
                                 item.codigo !== produto.codigo ? item : produto
                             ));
+                            consultarProduto().then((lista) => {
+                                props.setListaDeProdutos(lista);
+                            })
                         }
                         else {
                             toast.error(resultado.mensagem);
@@ -77,7 +80,8 @@ export default function FormCadProdutos(props) {
                     precoVenda: 0,
                     qtdEstoque: 0,
                     urlImagem: "",
-                    dataValidade: ""
+                    dataValidade: "",
+                    categoria: {}
                 });
             }
 
@@ -93,7 +97,18 @@ export default function FormCadProdutos(props) {
     function manipularMudanca(evento) {
         const elemento = evento.target.name;
         const valor = evento.target.value;
-        setProduto({ ...produto, [elemento]: valor });
+
+        if (elemento === 'categoria') {
+            setProduto({
+                ...produto,
+                [elemento]: {
+                    codigo: valor,
+                }
+            });
+        }
+        else {
+            setProduto({ ...produto, [elemento]: valor });
+        }
     }
 
     return (

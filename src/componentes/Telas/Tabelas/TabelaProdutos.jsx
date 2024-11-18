@@ -2,7 +2,6 @@ import { Button, Container, Table } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { deletarProduto } from "../../../servicos/servicoProduto";
 
-
 export default function TabelaProdutos(props) {
 
     function editarProduto(produto) {
@@ -48,7 +47,7 @@ export default function TabelaProdutos(props) {
                         <th>Qtd. em estoque</th>
                         <th>Imagem</th>
                         <th>Validade</th>
-                        <th>Categoria<th/>
+                        <th>Categoria</th>
                         <th>Ações</th>
                     </thead>
                     <tbody>
