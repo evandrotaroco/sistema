@@ -8,7 +8,6 @@ import TabelaCliente from "./Tabelas/TabelaCliente";
 export default function TelaCadastroCliente(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
     const [modoEdicao, setModoEdicao] = useState(false);
-    //const [produtos, setProdutos] = useState([]);
     const [clienteSelecionado, setClienteSelecionado] = useState({
         codigo:0,
         nome:"",
