@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { consultarProduto, deletarProduto, gravarProduto, alterarProduto } from "../servicos/servicoProduto";
+import { consultarFornecedor, deletarFornecedor, gravarFornecedor, alterarFornecedor } from "../servicos/servicoFornecedor";
 
 import ESTADO from "./estados";
 
-export const buscarProdutos = createAsyncThunk('buscarProdutos', async () => {
+export const buscarFornecedores = createAsyncThunk('buscarFornecedores', async () => {
     try {
-        const resultado = await consultarProduto();
+        const resultado = await consultarFornecedor();
         if (Array.isArray(resultado)) {
             return {
                 "status": true,
-                "mensagem": "Produtos recuperados com sucesso",
-                "listaDeProdutos": resultado
+                "mensagem": "Fornecedores recuperados com sucesso",
+                "listaFornecedores": resultado
             }
         }
         else {
             return {
                 "status": false,
-                "mensagem": "Erro ao recuperar os produtos do backend.",
-                "listaDeProdutos": []
+                "mensagem": "Erro ao recuperar os Fornecedores do backend.",
+                "listaFornecedores": []
             }
         }
     }
@@ -26,18 +26,18 @@ export const buscarProdutos = createAsyncThunk('buscarProdutos', async () => {
         return {
             "status": false,
             "mensagem": "Erro: " + erro.message,
-            "listaDeProdutos": []
+            "listaFornecedores": []
         }
     }
 });
 
-export const apagarProduto = createAsyncThunk('apagarProduto', async (produto) => {
+export const apagarFornecedor = createAsyncThunk('apagarFornecedor', async (fornecedor) => {
     try {
-        const resultado = await deletarProduto(produto);
+        const resultado = await deletarFornecedor(fornecedor);
         return {
             "status": resultado.status,
             "mensagem": resultado.mensagem,
-            "codigo": produto.codigo
+            "codigo": fornecedor.codigo
         };
     }
     catch (erro) {
@@ -48,21 +48,21 @@ export const apagarProduto = createAsyncThunk('apagarProduto', async (produto) =
     }
 });
 
-export const incluirProduto = createAsyncThunk('incluirProduto', async (produto) => {
+export const incluirFornecedor = createAsyncThunk('incluirFornecedor', async (fornecedor) => {
 
     try {
-        const resultado = await gravarProduto(produto);
+        const resultado = await gravarFornecedor(fornecedor);
         if (resultado.status) {
-            produto.codigo = resultado.codigo;
+            fornecedor.codigo = resultado.codigo;
             return {
-                "status": true,
+                "status": resultado.status,
                 "mensagem": resultado.mensagem,
-                "produto": produto
+                "fornecedor": fornecedor
             }
         }
         else {
             return {
-                "status": false,
+                "status": resultado.status,
                 "mensagem": resultado.mensagem,
             }
         }
@@ -75,13 +75,13 @@ export const incluirProduto = createAsyncThunk('incluirProduto', async (produto)
     }
 });
 
-export const atualizarProduto = createAsyncThunk('atualizarProduto', async (produto) => {
+export const atualizarFornecedor = createAsyncThunk('atualizarFornecedor', async (fornecedor) => {
     try {
-        const resultado = await alterarProduto(produto);
+        const resultado = await alterarFornecedor(fornecedor);
         return {
             "status": resultado.status,
             "mensagem": resultado.mensagem,
-            "produto": produto
+            "fornecedor": fornecedor
         }
     }
     catch (erro) {
@@ -92,106 +92,106 @@ export const atualizarProduto = createAsyncThunk('atualizarProduto', async (prod
     }
 });
 
-const produtoReducer = createSlice({
-    name: 'produto',
+const fornecedorReducer = createSlice({
+    name: 'fornecedor',
     initialState: {
         estado: ESTADO.OCIOSO,
         mensagem: "",
-        listaDeProdutos: []
+        listaFornecedores: []
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
 
-            // *** BUSCAR PRODUTOS ***
+            // *** BUSCAR FornecedorS ***
 
-            .addCase(buscarProdutos.pending, (state) => {
+            .addCase(buscarFornecedores.pending, (state) => {
                 state.estado = ESTADO.PENDENTE
                 state.mensagem = "Processando requisição... (buscando)"
             })
-            .addCase(buscarProdutos.fulfilled, (state, action) => {
+            .addCase(buscarFornecedores.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos = action.payload.listaDeProdutos;
+                    state.listaFornecedores = action.payload.listaFornecedores;
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos = action.payload.listaDeProdutos;
+                    state.listaFornecedores = action.payload.listaFornecedores;
                 }
             })
-            .addCase(buscarProdutos.rejected, (state, action) => {
+            .addCase(buscarFornecedores.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
-                state.listaDeProdutos = action.payload.listaDeProdutos;
+                state.listaFornecedores = action.payload.listaFornecedores;
             })
 
-            // *** APAGAR PRODUTOS ***
+            // *** APAGAR FornecedorS ***
 
-            .addCase(apagarProduto.pending, (state, action) => {
+            .addCase(apagarFornecedor.pending, (state, action) => {
                 state.estado = ESTADO.PENDENTE;
                 state.mensagem = "Processando a requisição... (exclusão)";
             })
-            .addCase(apagarProduto.fulfilled, (state, action) => {
+            .addCase(apagarFornecedor.fulfilled, (state, action) => {
                 state.mensagem = action.payload.mensagem;
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
-                    state.listaDeProdutos = state.listaDeProdutos.filter((item) => item.codigo !== action.payload.codigo);
+                    state.listaFornecedores = state.listaFornecedores.filter((item) => item.codigo !== action.payload.codigo);
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                 }
             })
-            .addCase(apagarProduto.rejected, (state, action) => {
+            .addCase(apagarFornecedor.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
             })
 
-            // *** INCLUIR PRODUTOS ***
+            // *** INCLUIR FornecedorS ***
 
-            .addCase(incluirProduto.pending, (state, action) => {
+            .addCase(incluirFornecedor.pending, (state, action) => {
                 state.estado = ESTADO.PENDENTE;
                 state.mensagem = "Processando a requisição... (incluindo)";
             })
-            .addCase(incluirProduto.fulfilled, (state, action) => {
+            .addCase(incluirFornecedor.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos.push(action.payload.produto);
+                    state.listaFornecedores.push(action.payload.fornecedor);
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                     state.mensagem = action.payload.mensagem;
                 }
             })
-            .addCase(incluirProduto.rejected, (state, action) => {
+            .addCase(incluirFornecedor.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
             })
 
-            // *** ATUALIZAR PRODUTOS ***
+            // *** ATUALIZAR FornecedorS ***
 
-            .addCase(atualizarProduto.pending, (state, action) => {
+            .addCase(atualizarFornecedor.pending, (state, action) => {
                 state.estado = ESTADO.PENDENTE;
                 state.mensagem = "Processando a requisição... (atualizando)";
             })
-            .addCase(atualizarProduto.fulfilled, (state, action) => {
+            .addCase(atualizarFornecedor.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos = state.listaDeProdutos.map((item) => item.codigo === action.payload.produto.codigo ? action.payload.produto : item);
+                    state.listaFornecedores = state.listaFornecedores.map((item) => item.codigo === action.payload.fornecedor.codigo ? action.payload.fornecedor : item);
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                     state.mensagem = action.payload.mensagem;
                 }
             })
-            .addCase(atualizarProduto.rejected, (state, action) => {
+            .addCase(atualizarFornecedor.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
             })
     }
 });
 
-export default produtoReducer.reducer;
+export default fornecedorReducer.reducer;

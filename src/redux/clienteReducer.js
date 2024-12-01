@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { consultarProduto, deletarProduto, gravarProduto, alterarProduto } from "../servicos/servicoProduto";
+import { consultarCliente, deletarCliente, gravarCliente, alterarCliente } from "../servicos/servicoCliente";
 
 import ESTADO from "./estados";
 
-export const buscarProdutos = createAsyncThunk('buscarProdutos', async () => {
+export const buscarClientes = createAsyncThunk('buscarClientes', async () => {
     try {
-        const resultado = await consultarProduto();
+        const resultado = await consultarCliente();
         if (Array.isArray(resultado)) {
             return {
                 "status": true,
-                "mensagem": "Produtos recuperados com sucesso",
-                "listaDeProdutos": resultado
+                "mensagem": "Clientes recuperados com sucesso",
+                "listaClientes": resultado
             }
         }
         else {
             return {
                 "status": false,
-                "mensagem": "Erro ao recuperar os produtos do backend.",
-                "listaDeProdutos": []
+                "mensagem": "Erro ao recuperar os clientes do backend.",
+                "listaClientes": []
             }
         }
     }
@@ -26,18 +26,18 @@ export const buscarProdutos = createAsyncThunk('buscarProdutos', async () => {
         return {
             "status": false,
             "mensagem": "Erro: " + erro.message,
-            "listaDeProdutos": []
+            "listaClientes": []
         }
     }
 });
 
-export const apagarProduto = createAsyncThunk('apagarProduto', async (produto) => {
+export const apagarCliente = createAsyncThunk('apagarCliente', async (cliente) => {
     try {
-        const resultado = await deletarProduto(produto);
+        const resultado = await deletarCliente(cliente);
         return {
             "status": resultado.status,
             "mensagem": resultado.mensagem,
-            "codigo": produto.codigo
+            "codigo": cliente.codigo
         };
     }
     catch (erro) {
@@ -48,21 +48,21 @@ export const apagarProduto = createAsyncThunk('apagarProduto', async (produto) =
     }
 });
 
-export const incluirProduto = createAsyncThunk('incluirProduto', async (produto) => {
+export const incluirCliente = createAsyncThunk('incluirCliente', async (cliente) => {
 
     try {
-        const resultado = await gravarProduto(produto);
+        const resultado = await gravarCliente(cliente);
         if (resultado.status) {
-            produto.codigo = resultado.codigo;
+            cliente.codigo = resultado.codigo;
             return {
-                "status": true,
+                "status": resultado.status,
                 "mensagem": resultado.mensagem,
-                "produto": produto
+                "cliente": cliente
             }
         }
         else {
             return {
-                "status": false,
+                "status": resultado.status,
                 "mensagem": resultado.mensagem,
             }
         }
@@ -75,13 +75,13 @@ export const incluirProduto = createAsyncThunk('incluirProduto', async (produto)
     }
 });
 
-export const atualizarProduto = createAsyncThunk('atualizarProduto', async (produto) => {
+export const atualizarCliente = createAsyncThunk('atualizarCliente', async (cliente) => {
     try {
-        const resultado = await alterarProduto(produto);
+        const resultado = await alterarCliente(cliente);
         return {
             "status": resultado.status,
             "mensagem": resultado.mensagem,
-            "produto": produto
+            "cliente": cliente
         }
     }
     catch (erro) {
@@ -92,106 +92,106 @@ export const atualizarProduto = createAsyncThunk('atualizarProduto', async (prod
     }
 });
 
-const produtoReducer = createSlice({
-    name: 'produto',
+const clienteReducer = createSlice({
+    name: 'cliente',
     initialState: {
         estado: ESTADO.OCIOSO,
         mensagem: "",
-        listaDeProdutos: []
+        listaClientes: []
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
 
-            // *** BUSCAR PRODUTOS ***
+            // *** BUSCAR ClienteS ***
 
-            .addCase(buscarProdutos.pending, (state) => {
+            .addCase(buscarClientes.pending, (state) => {
                 state.estado = ESTADO.PENDENTE
                 state.mensagem = "Processando requisição... (buscando)"
             })
-            .addCase(buscarProdutos.fulfilled, (state, action) => {
+            .addCase(buscarClientes.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos = action.payload.listaDeProdutos;
+                    state.listaClientes = action.payload.listaClientes;
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos = action.payload.listaDeProdutos;
+                    state.listaClientes = action.payload.listaClientes;
                 }
             })
-            .addCase(buscarProdutos.rejected, (state, action) => {
+            .addCase(buscarClientes.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
-                state.listaDeProdutos = action.payload.listaDeProdutos;
+                state.listaClientes = action.payload.listaClientes;
             })
 
-            // *** APAGAR PRODUTOS ***
+            // *** APAGAR ClienteS ***
 
-            .addCase(apagarProduto.pending, (state, action) => {
+            .addCase(apagarCliente.pending, (state, action) => {
                 state.estado = ESTADO.PENDENTE;
                 state.mensagem = "Processando a requisição... (exclusão)";
             })
-            .addCase(apagarProduto.fulfilled, (state, action) => {
+            .addCase(apagarCliente.fulfilled, (state, action) => {
                 state.mensagem = action.payload.mensagem;
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
-                    state.listaDeProdutos = state.listaDeProdutos.filter((item) => item.codigo !== action.payload.codigo);
+                    state.listaClientes = state.listaClientes.filter((item) => item.codigo !== action.payload.codigo);
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                 }
             })
-            .addCase(apagarProduto.rejected, (state, action) => {
+            .addCase(apagarCliente.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
             })
 
-            // *** INCLUIR PRODUTOS ***
+            // *** INCLUIR ClienteS ***
 
-            .addCase(incluirProduto.pending, (state, action) => {
+            .addCase(incluirCliente.pending, (state, action) => {
                 state.estado = ESTADO.PENDENTE;
                 state.mensagem = "Processando a requisição... (incluindo)";
             })
-            .addCase(incluirProduto.fulfilled, (state, action) => {
+            .addCase(incluirCliente.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos.push(action.payload.produto);
+                    state.listaClientes.push(action.payload.cliente);
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                     state.mensagem = action.payload.mensagem;
                 }
             })
-            .addCase(incluirProduto.rejected, (state, action) => {
+            .addCase(incluirCliente.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
             })
 
-            // *** ATUALIZAR PRODUTOS ***
+            // *** ATUALIZAR ClienteS ***
 
-            .addCase(atualizarProduto.pending, (state, action) => {
+            .addCase(atualizarCliente.pending, (state, action) => {
                 state.estado = ESTADO.PENDENTE;
                 state.mensagem = "Processando a requisição... (atualizando)";
             })
-            .addCase(atualizarProduto.fulfilled, (state, action) => {
+            .addCase(atualizarCliente.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaDeProdutos = state.listaDeProdutos.map((item) => item.codigo === action.payload.produto.codigo ? action.payload.produto : item);
+                    state.listaClientes = state.listaClientes.map((item) => item.codigo === action.payload.cliente.codigo ? action.payload.cliente : item);
                 }
                 else {
                     state.estado = ESTADO.ERRO;
                     state.mensagem = action.payload.mensagem;
                 }
             })
-            .addCase(atualizarProduto.rejected, (state, action) => {
+            .addCase(atualizarCliente.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.payload.mensagem;
             })
     }
 });
 
-export default produtoReducer.reducer;
+export default clienteReducer.reducer;
