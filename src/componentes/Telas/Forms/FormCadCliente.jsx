@@ -1,11 +1,8 @@
 import { Alert, Button, Spinner, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { consultarCategoria } from '../../../servicos/servicoCategoria';
 import { useSelector, useDispatch } from 'react-redux';
 import { incluirCliente, atualizarCliente } from '../../../redux/clienteReducer';
 import ESTADO from '../../../redux/estados'
-import toast, { Toaster } from 'react-hot-toast';
-import { incluirCategoria } from '../../../redux/categoriaReducer';
 
 export default function FormCadCliente(props) {
     const [cliente, setCliente] = useState(props.clienteSelecionado);
@@ -19,8 +16,7 @@ export default function FormCadCliente(props) {
         if (form.checkValidity()) {
 
             if (!props.modoEdicao) {
-                //cadastrar o produto
-                despachante(incluirCategoria(cliente));
+                despachante(incluirCliente(cliente));
                 setMensagemExibida(mensagem);
                 setMensagemExibida("");
                 setCliente({
