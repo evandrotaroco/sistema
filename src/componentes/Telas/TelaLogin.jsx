@@ -1,21 +1,29 @@
 import { Container, Form, Button } from "react-bootstrap";
 import { useContext, useRef } from "react";
 import { ContextoUsuario } from "../../App";
+import { login } from "../../servicos/servicoUsuario.js";
 
 export default function TelaLogin() {
     const nomeUsuario = useRef();
     const senha = useRef();
-    const {usuario, setUsuario} = useContext(ContextoUsuario);
+    const { usuario, setUsuario } = useContext(ContextoUsuario);
 
-    function manipularSubmissao(evento){
+    function manipularSubmissao(evento) {
         const usuarioDigitado = nomeUsuario.current.value;
         const senhaDigitada = senha.current.value;
-        if(usuarioDigitado === 'admin' && senhaDigitada === 'admin') {
-            setUsuario({
-                "usuario":usuarioDigitado,
-                "logado": true
+        login(usuarioDigitado, senhaDigitada)
+            .then((resposta) => {
+                if (resposta.status) {
+                    setUsuario({
+                        "usuario": usuarioDigitado,
+                        "logado": true
+                    });
+                    window.alert("Login efetuado com sucesso");
+                }
+                else {
+                    window.alert(resposta.mensagem);
+                }
             });
-        }
         evento.preventDefault();
         evento.stopPropagation();
     }
