@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { consultarUsuario, deletarUsuario, gravarUsuario, alterarUsuario } from "../servicos/servicoUsuario";
+import { consultarUsuario, deletarUsuario, gravarUsuario, alterarUsuario, login } from "../servicos/servicoUsuario";
 
 import ESTADO from "./estados";
 
@@ -92,6 +92,29 @@ export const atualizarUsuario = createAsyncThunk('atualizarUsuario', async (usua
     }
 });
 
+export const loginUsuario = createAsyncThunk('usuario/login', async (credenciais) => {
+    try {
+        const resultado = await login(credenciais.nome, credenciais.senha);
+        if (resultado.status) {
+            return {
+                status: true,
+                mensagem: "Login realizado com sucesso",
+                usuario: resultado.usuario
+            };
+        } else {
+            return {
+                status: false,
+                mensagem: resultado.mensagem
+            };
+        }
+    } catch (erro) {
+        return {
+            status: false,
+            mensagem: "Erro: " + erro.message
+        };
+    }
+});
+
 const usuarioReducer = createSlice({
     name: 'usuario',
     initialState: {
@@ -158,7 +181,7 @@ const usuarioReducer = createSlice({
                 if (action.payload.status) {
                     state.estado = ESTADO.OCIOSO;
                     state.mensagem = action.payload.mensagem;
-                    state.listaUsuarios.push(action.payload.Usuario);
+                    state.listaUsuarios.push(action.payload.usuario);
                 }
                 else {
                     state.estado = ESTADO.ERRO;

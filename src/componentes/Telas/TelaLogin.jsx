@@ -16,9 +16,9 @@ export default function TelaLogin() {
                 if (resposta.status) {
                     setUsuario({
                         "usuario": usuarioDigitado,
-                        "logado": true
+                        "logado": true,
+                        "privilegio": resposta.privilegio
                     });
-                    window.alert("Login efetuado com sucesso");
                 }
                 else {
                     window.alert(resposta.mensagem);
@@ -31,9 +31,10 @@ export default function TelaLogin() {
     return (
         <Container className="w-25 border p-2">
             <Form onSubmit={manipularSubmissao}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
+                <Form.Group className="mb-3">
+                    <Form.Label>Usuário</Form.Label>
                     <Form.Control
+                        required
                         type="text"
                         id="usuario"
                         name="usuario"
@@ -45,9 +46,10 @@ export default function TelaLogin() {
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3">
                     <Form.Label>Senha</Form.Label>
                     <Form.Control
+                        required
                         type="password"
                         id="senha"
                         name="senha"

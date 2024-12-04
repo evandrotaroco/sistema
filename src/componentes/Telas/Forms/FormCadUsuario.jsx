@@ -97,10 +97,9 @@ export default function FormCadUsuario(props) {
                         onChange={manipularMudanca}
                         aria-label="Privilégio"
                     >
-                        <option value="">Nenhum</option>
-                        <option value="Admin">Admin</option>
+                        <option value="Basico">Básico</option>
                         <option value="Gerente">Gerente</option>
-                        <option value="Normal">Básico</option>
+                        <option value="Admin">Admin</option>
                     </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3">

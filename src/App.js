@@ -17,7 +17,8 @@ function App() {
 
   const [usuario, setUsuario] = useState({
     "usuario": "",
-    "logado": true
+    "logado": false,
+    "privilegio": ""
   });
 
   if (!usuario.logado) {
