@@ -1,8 +1,7 @@
-import { Alert, Button, Spinner, Col, Form, InputGroup, Row } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { incluirUsuario, atualizarUsuario } from '../../../redux/usuarioReducer';
-import ESTADO from '../../../redux/estados'
 
 export default function FormCadUsuario(props) {
     const [usuario, setUsuario] = useState(props.usuarioSelecionado);
@@ -79,6 +78,7 @@ export default function FormCadUsuario(props) {
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                         required
+                        disabled={props.modoEdicao}
                         id="email"
                         name="email"
                         value={usuario.email}
@@ -96,7 +96,7 @@ export default function FormCadUsuario(props) {
                         value={usuario.privilegio}
                         onChange={manipularMudanca}
                         aria-label="Privilégio"
-                    >
+                    >   <option value=""></option>
                         <option value="Basico">Básico</option>
                         <option value="Gerente">Gerente</option>
                         <option value="Admin">Admin</option>
@@ -133,6 +133,14 @@ export default function FormCadUsuario(props) {
                     <Col md={{ offset: 1 }}>
                         <Button onClick={() => {
                             props.setExibirTabela(true);
+                            props.setModoEdicao(false);
+                            props.setUsuarioSelecionado({
+                                nome: "",
+                                email: "",
+                                senha: "",
+                                senhaConfirmada: "",
+                                privilegio: ""
+                            });
                         }}>Voltar</Button>
                     </Col>
                 </Row>

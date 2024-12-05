@@ -35,7 +35,7 @@ export default function Menu(props) {
                             <NavDropdown.Item href="#action/3.1">Compras</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="#home">Sobre</Nav.Link>
-                        <Nav.Link onClick={()=>{
+                        <Nav.Link href="#" as={Link} to="/" onClick={()=>{
                             setUsuario({
                                 "usuario":"",
                                 "logado": false

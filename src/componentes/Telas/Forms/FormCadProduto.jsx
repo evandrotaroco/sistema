@@ -270,6 +270,17 @@ export default function FormCadProdutos(props) {
                         <Col md={{ offset: 1 }}>
                             <Button onClick={() => {
                                 props.setExibirTabela(true);
+                                props.setModoEdicao(false);
+                                props.setProdutoSelecionado({
+                                    codigo: 0,
+                                    descricao: "",
+                                    precoCusto: 0,
+                                    precoVenda: 0,
+                                    qtdEstoque: 0,
+                                    urlImagem: "",
+                                    dataValidade: "",
+                                    categoria: {}
+                                });
                             }}>Voltar</Button>
                         </Col>
                     </Row>

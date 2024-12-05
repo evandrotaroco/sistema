@@ -34,7 +34,6 @@ export async function deletarUsuario(usuarios) {
     });
 
     const resultado = await resposta.json();
-    console.log("Resposta da exclusão:", resultado);
     return resultado;
 }
 

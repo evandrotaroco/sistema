@@ -43,7 +43,7 @@ export default function TabelaUsuario(props) {
         return (
             <div>
                 <Container>
-                    {usuario.privilegio !== "Basico" && (
+                    {(usuario.privilegio !== "Basico" && usuario.privilegio !== "") && (
                         <Button className="mb=3" variant="primary"
                             onClick={() => {
                                 props.setExibirTabela(false);
@@ -70,7 +70,7 @@ export default function TabelaUsuario(props) {
                                             <td>{usuarioTabela.email}</td>
                                             <td>{usuarioTabela.privilegio}</td>
                                             
-                                            {usuario.privilegio !== "Basico" && (
+                                            {(usuario.privilegio !== "Basico" && usuario.privilegio !== "") && (
                                                 <td>
                                                     <Button onClick={() => {
                                                         editarUsuario(usuarioTabela);
