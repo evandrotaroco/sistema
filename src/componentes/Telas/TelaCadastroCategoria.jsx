@@ -17,7 +17,7 @@ export default function TelaCadastroCategoria(props) {
         <div>
             <Pagina>
                 <Alert className="mt-02 mb-02 success text-center" variant="success">
-                    <h2>Cadastro de Categoria</h2>
+                    <h3>Cadastro de Categoria</h3>
                 </Alert>
                 {
                     exibirTabela ?

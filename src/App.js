@@ -34,8 +34,6 @@ function App() {
         <Provider store={store}>
           <ContextoUsuario.Provider value={{ usuario, setUsuario }}>
             <BrowserRouter>
-              { //A ordem das rotas é importante 
-              }
               <Routes>
                 <Route path="/produto" element={<TelaCadastroProduto />} />
                 <Route path="/categoria" element={<TelaCadastroCategoria />} />

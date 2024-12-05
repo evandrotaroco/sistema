@@ -17,8 +17,8 @@ export default function TelaCadastroProduto(props) {
         qtdEstoque:0,
         urlImagem:"",
         dataValidade:"",
-        categoria: {}
-
+        categoria: {},
+        fornecedor: {}
     });
 
   
@@ -26,9 +26,9 @@ export default function TelaCadastroProduto(props) {
         <div>
             <Pagina>
                 <Alert className="mt-02 mb-02 success text-center" variant="success">
-                    <h2>
+                    <h3>
                         Cadastro de Produto
-                    </h2>
+                    </h3>
                 </Alert>
                 {
                     exibirTabela ?

@@ -22,9 +22,9 @@ export default function TelaCadastroCliente(props) {
         <div>
             <Pagina>
                 <Alert className="mt-02 mb-02 success text-center" variant="success">
-                    <h2>
+                    <h3>
                         Cadastro de Fornecedor
-                    </h2>
+                    </h3>
                 </Alert>
                 {
                     exibirTabela ?

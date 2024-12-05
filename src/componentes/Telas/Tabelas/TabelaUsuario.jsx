@@ -7,7 +7,7 @@ import ESTADO from "../../../redux/estados";
 
 export default function TabelaUsuario(props) {
     const { estado, mensagem, listaUsuarios } = useSelector(state => state.usuario);
-    const { usuario } = useContext(ContextoUsuario); // Aqui você pega as informações do usuário logado
+    const { usuario } = useContext(ContextoUsuario);
     const despachante = useDispatch();
 
     useEffect(() => {

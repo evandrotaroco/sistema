@@ -22,9 +22,9 @@ export default function TelaCadastroUsuario(props) {
         <div>
             <Pagina>
                 <Alert className="mt-02 mb-02 success text-center" variant="success">
-                    <h2>
+                    <h3>
                         Cadastro de Usuário
-                    </h2>
+                    </h3>
                 </Alert>
                 {
                     exibirTabela ?
