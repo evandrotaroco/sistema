@@ -11,9 +11,9 @@ export default function TelaCadastroCliente(props) {
     const [clienteSelecionado, setClienteSelecionado] = useState({
         codigo:0,
         nome:"",
-        cpf:"",
         email:"",
         telefone:"",
+        cpf:"",
         endereco:""
     });
 

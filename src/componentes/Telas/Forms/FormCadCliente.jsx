@@ -22,9 +22,9 @@ export default function FormCadCliente(props) {
                 setCliente({
                     codigo: 0,
                     nome: "",
-                    cpf: "",
                     email: "",
                     telefone: "",
+                    cpf: "",
                     endereco: ""
                 });
                 props.setExibirTabela(true);
@@ -38,9 +38,9 @@ export default function FormCadCliente(props) {
                 props.setClienteSelecionado({
                     codigo: 0,
                     nome: "",
-                    cpf: "",
                     email: "",
                     telefone: "",
+                    cpf: "",
                     endereco: ""
                 });
                 props.setExibirTabela(true);
@@ -178,9 +178,9 @@ export default function FormCadCliente(props) {
                                 props.setClienteSelecionado({
                                     codigo: 0,
                                     nome: "",
-                                    cpf: "",
                                     email: "",
                                     telefone: "",
+                                    cpf: "",
                                     endereco: ""
                                 });
                             }}>Voltar</Button>
