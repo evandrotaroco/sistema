@@ -33,7 +33,7 @@ function App() {
       <div className="App">
         <Provider store={store}>
           <ContextoUsuario.Provider value={{ usuario, setUsuario }}>
-            <BrowserRouter>
+            <BrowserRouter basename="sistema">
               <Routes>
                 <Route path="/produto" element={<TelaCadastroProduto />} />
                 <Route path="/categoria" element={<TelaCadastroCategoria />} />
